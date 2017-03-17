@@ -1,8 +1,5 @@
 /* ===========================================================
  * sw.js
- * ===========================================================
- * Copyright 2017 @Ofei
- * Register service worker.
  * ========================================================== */
 
 const PRECACHE = 'precache-v2';
@@ -13,8 +10,6 @@ const HOSTNAME_WHITELIST = [
   "cdn.jsdelivr.net"
 ]
 
-
-// The Util Function to hack URLs of intercepted requests
 const getFixedUrl = (req) => {
   var now = Date.now();
   url = new URL(req.url)
