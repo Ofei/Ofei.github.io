@@ -2,7 +2,7 @@
  * sw.js
  * ========================================================== */
 
-const PRECACHE = 'precache-v2';
+const PRECACHE = 'precache-v1';
 const RUNTIME = 'runtime';
 const HOSTNAME_WHITELIST = [
   self.location.hostname,
