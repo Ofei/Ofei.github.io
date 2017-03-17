@@ -99,12 +99,16 @@
 <!-- Service Worker -->
 {% if site.service-worker %}
 <script type="text/javascript">
-    if(navigator.serviceWorker){
-        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
-        navigator.serviceWorker
-            .register('/sw.js')
-            .then((registration) => {console.log('Service Worker Registered. ', registration)})
-            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+          // Registration was successful
+          console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        }).catch(function(err) {
+          // registration failed :(
+          console.log('ServiceWorker registration failed: ', err);
+        });
+      });
     }
 </script>
 {% endif %}
@@ -138,7 +142,7 @@
 
 <!--fastClick.js -->
 <script>
-    async("https://cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js", function(){
+    async('{{ "/js/fastclick.min.js" | prepend: site.baseurl }}', function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
