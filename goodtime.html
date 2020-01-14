@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>幸福时刻，与您一起见证</title>
+  <script type="text/javascript">
+    (function (win) {
+      var remCalc = {};
+      var docEl = win.document.documentElement,
+        tid,
+        hasRem = true,
+        hasZoom = true,
+        zoomRuler = 'width',
+        designWidth = 750,
+        designHeight = 1206;
+
+      function refresh() {
+        var width = docEl.clientWidth;
+        var height = docEl.clientHeight;
+        if (width > 768) { width = 768 }
+        if (hasRem) {
+          var rem = width / 10;
+          docEl.style.fontSize = rem + "px";
+          remCalc.rem = rem;
+          var actualSize = parseFloat(window.getComputedStyle(document.documentElement)["font-size"]);
+          if (actualSize !== rem && actualSize > 0 && Math.abs(actualSize - rem) > 1) {
+            var remScaled = rem * rem / actualSize;
+            docEl.style.fontSize = remScaled + "px"
+          }
+        }
+        if (hasZoom) {
+          var style = document.getElementById('J__style')
+          if (!style) {
+            style = document.createElement('style')
+            style.id = 'J__style'
+          }
+          if (zoomRuler === 'height') {
+            style.innerHTML = '.__z{zoom:' + height / designHeight + '}'
+          } else {
+            style.innerHTML = '.__z{zoom:' + width / designWidth + '}'
+          }
+          document.getElementsByTagName('head')[0].appendChild(style)
+        }
+      }
+
+      function dbcRefresh() {
+        clearTimeout(tid);
+        tid = setTimeout(refresh, 100)
+      }
+      win.addEventListener("resize", function () {
+        dbcRefresh()
+      }, false);
+
+      win.addEventListener("pageshow", function (e) {
+        if (e.persisted) {
+          dbcRefresh()
+        }
+      }, false);
+      refresh();
+      if (hasRem) {
+        remCalc.refresh = refresh;
+        remCalc.rem2px = function (d) {
+          var val = parseFloat(d) * this.rem;
+          if (typeof d === "string" && d.match(/rem$/)) {
+            val += "px"
+          }
+          return val
+        };
+        remCalc.px2rem = function (d) {
+          var val = parseFloat(d) / this.rem;
+          if (typeof d === "string" && d.match(/px$/)) {
+            val += "rem"
+          }
+          return val
+        };
+        win.remCalc = remCalc
+      }
+    })(window);
+  </script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      outline: 0;
+      margin: 0;
+      padding: 0;
+    }
+    html {
+      width: 100%;
+      height: 100%;
+    }
+    body {
+      margin: 0 auto;
+      min-width: 4.26667rem;
+      max-width: 10.24rem;
+      width: 100%;
+      height: 100%;
+      font-size: .18667rem;
+      font-family: -apple-system, Helvetica,Microsoft YaHei,Arial,sans-serif;
+      line-height: 1.5;
+      text-size-adjust: 100%;
+      user-select: none;
+      overflow: hidden;
+    }
+    .container {
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+    }
+    .main {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      font-size: .32rem;
+    }
+    .main .hd {
+      padding-top: .01333rem;
+      background-color: #e2231a;
+      height: 75%;
+      background-image: url('./love.jpeg');
+      background-size: 100% auto;
+      background-position: top center;
+      background-repeat: no-repeat;
+      position: relative;
+      
+    }
+    .hd-inner {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(226,35,26,0.75);
+    }
+    .hd .title {
+      margin: 3.5rem 0 0;
+      text-align: center;
+      color: #fff;
+    }
+    .hd .txt {
+      display: block;
+      font-size: .42rem;
+      padding-bottom: 1rem;
+    }
+    .main .btns {
+      display: flex;
+      width: 7.38667rem;
+      margin: -.66667rem auto 0;
+      text-align: center;
+      position: relative;
+      z-index: 1000;
+    }
+    .main .button {
+      width: 1.33333rem;
+      height: 1.33333rem;
+      border-radius: .66667rem;
+      background-color: #000;
+      display: block;
+      margin: 0 0 0 .77333rem;
+      position: relative;
+      color: #fff;
+    }
+    .main .button.share {
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: .8rem;
+      margin: -.13333rem 0 0 .77333rem;
+    }
+    .main .button span {
+        display: inline-block;
+        margin-top: 2rem
+    }
+    .main .button:before {
+      content: ""
+    }
+    .main .button.redo:before {
+      width: .50667rem;
+      height: .50667rem;
+      background-image: url(./address.png);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -.25333rem 0 0 -.25333rem;
+      background-size: .50667rem .50667rem;
+    }
+    .main .button.share:before {
+      width: .50667rem;
+      height: .50667rem;
+      background-image: url(./share.png);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -.25333rem 0 0 -.25333rem;
+      background-size: .50667rem .50667rem;
+    }
+    .main .button.share span {
+      margin-top: 2.13333rem;
+    }
+    .main .button.replay:before {
+      width: .50667rem;
+      height: .50667rem;
+      background-image: url(./tel.png);
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin: -.25333rem 0 0 -.25333rem;
+      background-size: .50667rem .50667rem;
+    }
+    .main .footer {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      bottom: 0.8rem;
+      transform: scale(.7);
+      z-index: 100;
+    }
+    .main .footer em {
+      color: #fff;
+      display: inline-block;
+      line-height: 1;
+      font-style: normal;
+    }
+    .mask {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: rgba(0,0,0,.6);
+      z-index: 9;
+    }
+    .mask-cnt {
+      height: 4.97333rem;
+      background-image: url(./sprite.png);
+      background-position: -9.56rem 0;
+      left: 50%;
+      top: 50%;
+      margin: -2.73333rem 0 0 -2.48rem;
+    }
+    .mask-cnt,
+    .mask-cnt::after {
+      width: 5.46667rem;
+      position: absolute;
+      background-size: 20.54667rem 4.97333rem;
+    }
+    .mask-cnt::after {
+      content: "";
+      left: 0;
+      bottom: 0;
+      height: 3.78667rem;
+      background-image: url(./sprite.png);
+      background-position: -15.08rem 0;
+    }
+    .mask-cnt .tips {
+      position: absolute;
+      width: 4.96rem;
+      height: 4.64rem;
+      background-image: url(./sprite.png);
+      background-position: -4.54667rem 0;
+      left: 50%;
+      bottom: 1%;
+      margin: 0 0 0 -2.48rem;
+      animation: tips .5s 0s 1 ease-in-out;
+      animation-fill-mode: forwards;
+      background-size: 20.54667rem 4.97333rem;
+    }
+    @keyframes tips {
+      0% {
+        -webkit-transform: translateY(0)
+      }
+      90% {
+        -webkit-transform: translateY(-1.2rem)
+      }
+      80%,to {
+        -webkit-transform: translateY(-1.33333rem)
+      }
+    }
+    .wave {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 25%;
+      background-color: whitesmoke;
+      background-image: linear-gradient( darkblue, rgba(255, 255, 255, 0) 80%, rgba(255, 255, 255, 0.5));
+      overflow: hidden;
+      z-index: 10;
+    }
+    .wave-item {
+      position: absolute;
+      width: 200vw;
+      height: 200vw;
+      border-radius: 43%;
+      bottom: 1rem;
+      left: -50vw;
+      animation: drift linear infinite;
+      transform-origin: 50% 48%;
+    }
+    .wave-item:nth-of-type(1) {
+      background: deepskyblue;
+      filter: opacity(0.4);
+      animation-duration: 5s;
+    }
+    .wave-item:nth-of-type(2) {
+      background: deepskyblue;
+      filter: opacity(0.4);
+      animation-duration: 7s;
+    }
+    .wave-item:nth-of-type(3) {
+      background-color: orangered;
+      filter: opacity(0.1);
+      animation-duration: 9s;
+    }
+    @keyframes drift {
+      from {
+        transform: rotate(1turn);
+      }
+    }
+    .hide {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="main">
+    <div class="hd">
+      <div class="hd-inner">
+        <div class="title">
+          <div class="txt">我们</div>
+          <div class="txt">己亥年 腊月廿七</div>
+          <div class="txt">2020年1月21日结婚啦</div>
+          <div class="txt">诚邀您前来参加</div>
+          <div class="txt">一起见证幸福时刻</div>
+        </div>
+      </div>
+    </div>
+    <div class="btns">
+      <a href="https://map.baidu.com/mobile/webapp/search/search/qt=s&wd=%E6%B1%9F%E8%A5%BF%E7%9C%81%E9%AB%98%E5%AE%89%E5%B8%82%E5%BB%BA%E5%B1%B1%E9%95%87%E6%B3%89%E4%B8%9C%E6%9D%91&c=278&searchFlag=bigBox&version=5&exptype=dep&src_from=webapp_all_bigbox&sug_forward=&src=0/vt=&vt=map" class="button redo"><span>地址</span></a>
+      <a href="javascript:;" class="button share" id="J-share"><span>分享快乐</span></a>
+      <a href="tel:15717959157" class="button replay"><span>联系</span></a>
+    </div>
+    <div class="footer">
+      <em>敖辉&曾丽珍</em>
+    </div>
+    <div class="wave">
+      <div class="wave-item"></div>
+      <div class="wave-item"></div>
+      <div class="wave-item"></div>
+    </div>
+  </div>
+  <div class="mask hide" id="J_mask">
+    <div class="mask-cnt">
+      <div class="tips"></div>
+    </div>
+  </div>
+</div>
+<script>
+  var share = document.getElementById('J-share')
+  var mask = document.getElementById('J_mask')
+  function addClass(el, className) {
+    if (el.classList) {
+      className.replace(/(^\s+|\s+$)/g, '').split(/\s+/g).forEach(item => {
+        item && el.classList.add(item)
+      })
+    } else if (!util.hasClass(el, className)) {
+      el.className += ' ' + className
+    }
+  }
+  function removeClass(el, className) {
+    if (el.classList) {
+      className.split(/\s+/g).forEach(item => {
+        el.classList.remove(item)
+      })
+    } else if (util.hasClass(el, className)) {
+      className.split(/\s+/g).forEach(item => {
+        let reg = new RegExp('(\\s|^)' + item + '(\\s|$)')
+        el.className = el.className.replace(reg, ' ')
+      })
+    }
+  }
+  share.addEventListener('click', function(){
+    removeClass(mask, 'hide')
+  }, false)
+  mask.addEventListener('click', function(){
+    addClass(mask, 'hide')
+  }, false)
+</script>
+</body>
+</html>
